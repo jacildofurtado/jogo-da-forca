@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da forca - Vanilla JavaScript</title>
+</head>
+<body>
+    <header>
+        <h1>Jogo da Forca</h1>
+    </header>
+    <main>
+        <label for="palavraInput">Insira uma palavra:</label>
+        <input type="text" id="palavraInput" placeholder="Ex: abacaxi">
+        <br>
+        <label for="dicaInput">Insira uma dica:</label>
+        <input type="text" id="dicaInput" placeholder="Ex: fruta">
+        <br>
+        <button onclick="iniciarJogo()">Iniciar Jogo</button>
+
+        <p id="dica"></p>
+        <p id="palavra"></p>
+        <p id="erros"></p>
+        <div id="alfabeto"></div>
+    </main>
+    <footer>
+        <p>Todos os direitos reservados a Jacildo Furtado.</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
