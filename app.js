@@ -4,6 +4,11 @@ let palavraExibida = [];
 let tentativas = 6;
 let letrasErradas = [];
 
+//valida a entrada impedindo a entrada de simbolos, números e letras acentuadas
+function validarEntrada(input){
+    input.value = input.value.replace(/[^A-Za-z]/g, '');
+}
+
 function iniciarJogo(){
     //Pega a palavra e a dica inseridas pelo jogador e armazena em variáveis
     palavraSecreta = document.getElementById("palavraInput").value.toLowerCase();
@@ -28,6 +33,7 @@ function iniciarJogo(){
     //Desabilita os inputs
     document.getElementById("palavraInput").style.display = "none";
     document.getElementById("dicaInput").style.display = "none";
+    document.querySelector(".inicioDoJogo").style.display = "none";
 
     //inicia a função de gerar teclado de letras.
     gerarTeclado();
@@ -67,6 +73,7 @@ function verificarLetra(letra, botao){
     document.getElementById("palavra").textContent = palavraExibida.join(" ");
     document.getElementById("erros").textContent = `Erros: ${letrasErradas.join(", ")} (${tentativas} tentativas restantes)`;
 
+    // verifica se ainda possue letra faltando ou se o número de tentativas chegou a zero.
     if (!palavraExibida.includes("*")) {
         alert("Parabéns, você venceu!");
         resetarJogo();
@@ -77,9 +84,11 @@ function verificarLetra(letra, botao){
 
 }
 
+//reseta o jogo
 function resetarJogo(){
-    document.getElementById("palavraInput").style.display = "block";
-    document.getElementById("dicaInput").style.display = "block";
+    document.getElementById("palavraInput").style.display = "";
+    document.getElementById("dicaInput").style.display = "";
+    document.querySelector(".inicioDoJogo").style.display = "";
     document.getElementById("palavraInput").value = "";
     document.getElementById("dicaInput").value = "";
     document.getElementById("alfabeto").innerHTML = "";
