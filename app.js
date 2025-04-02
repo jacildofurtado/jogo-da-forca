@@ -6,7 +6,7 @@ let letrasErradas = [];
 
 //valida a entrada impedindo a entrada de simbolos, números e letras acentuadas
 function validarEntrada(input){
-    input.value = input.value.replace(/[^A-Za-z]/g, '');
+    input.value = input.value.replace(/[^a-A-Zz]/g, '');
 }
 
 function iniciarJogo(){
@@ -58,8 +58,10 @@ function gerarTeclado(){
 
 function verificarLetra(letra, botao){
     botao.disabled = true; //Desativa a letra clicada
-
+    
+    //Verifica se a letra está na palavra secreta
     if (palavraSecreta.includes(letra)){
+        //percorre a palavra secreta para encontrar a posição da letra
         palavraSecreta.split("").forEach((char, index) => {
             if(char === letra){
                 palavraExibida[index] = letra;
@@ -75,11 +77,15 @@ function verificarLetra(letra, botao){
 
     // verifica se ainda possue letra faltando ou se o número de tentativas chegou a zero.
     if (!palavraExibida.includes("*")) {
-        alert("Parabéns, você venceu!");
-        resetarJogo();
+        setTimeout(() => {
+            alert("Parabéns, você venceu!");
+            resetarJogo();
+        }, 100);
     } else if (tentativas === 0){
-        alert(`Game Over! A palavra era "${palavraSecreta}"`);
-        resetarJogo();
+        setTimeout(() => {
+            alert(`Game Over! A palavra era "${palavraSecreta}"`);
+            resetarJogo();
+        }, 100);
     }
 
 }
