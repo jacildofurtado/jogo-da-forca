@@ -1,17 +1,24 @@
-let palavraSecreta = "";
-let dica = "";
-let palavraExibida = [];
-let tentativas = 6;
-let letrasErradas = [];
+let palavraSecreta = ""; //Armazena a palavra secreta.
+let dica = ""; //Armazena a dica.
+let palavraExibida = []; //Armazena um Array com * com o comprimento da palavraSecreta.
+let tentativas = 6; //Armazena a quantidade de tentativas.
+let letrasErradas = []; //Armazena as letras que forem clicadas e estiverem erradas.
+let mapaAcentos = new Map(); //Armazena a correspondência da palavraSecreta antes e depois de remover acentos.
 
-//valida a entrada impedindo a entrada de simbolos, números e letras acentuadas
+//valida a entrada impedindo a entrada de simbolos e números.
 function validarEntrada(input){
-    input.value = input.value.replace(/[^a-A-Zz]/g, '');
+    input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '');
+}
+
+//função para remover acentos de palavras e mapeia a palavra com e sem acento
+function removerAcentos(str){
+    mapaAcentos.set(str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), str);
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 function iniciarJogo(){
     //Pega a palavra e a dica inseridas pelo jogador e armazena em variáveis
-    palavraSecreta = document.getElementById("palavraInput").value.toLowerCase();
+    palavraSecreta = removerAcentos(document.getElementById("palavraInput").value.toLowerCase());
     dica = document.getElementById("dicaInput").value.toLowerCase();
 
     //Verifica se foi inserida uma palavra e uma dica
@@ -20,7 +27,7 @@ function iniciarJogo(){
         return;
     };
 
-    //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em asteriscos para ser exibidos ao usuário.
+    //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em asteriscos para ser exibido ao usuário.
     palavraExibida = Array(palavraSecreta.length).fill("*");
     tentativas = 6;
     letrasErradas = [];
@@ -40,13 +47,13 @@ function iniciarJogo(){
 }
 
 function gerarTeclado(){
-    //variável armazenando o todas as letras do alfabeto e transformando em um array com o método .split().
+    //variável armazenando todas as letras do alfabeto e transformando em um array com o método .split().
     let alfabeto = "abcdefghijklmnopqrstuvwxyz".split("");
 
     let painel = document.getElementById("alfabeto");
     painel.innerHTML = ""; //limpa antes de recriar
 
-    //cria dinamicamente os botões
+    //cria dinamicamente os botões de cada letra
     alfabeto.forEach((letra) => {
         let botao = document.createElement("button");
         botao.textContent = letra;
@@ -64,7 +71,8 @@ function verificarLetra(letra, botao){
         //percorre a palavra secreta para encontrar a posição da letra
         palavraSecreta.split("").forEach((char, index) => {
             if(char === letra){
-                palavraExibida[index] = letra;
+                //ao encontrar a letra na palavra secreta, adiciona a mesma na palavra exibida ao jogador
+                palavraExibida[index] = mapaAcentos.get(palavraSecreta)[index] || letra;
             }
         });
     } else {
@@ -83,7 +91,7 @@ function verificarLetra(letra, botao){
         }, 100);
     } else if (tentativas === 0){
         setTimeout(() => {
-            alert(`Game Over! A palavra era "${palavraSecreta}"`);
+            alert(`Game Over! A palavra era "${mapaAcentos.get(palavraSecreta)}"`);
             resetarJogo();
         }, 100);
     }
