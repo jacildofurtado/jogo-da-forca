@@ -1,0 +1,197 @@
+/*reseta as configurações globais*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilização do Jogo da Forca */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: #2C3E50;
+    color: #ECF0F1;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+main {
+    max-width: 600px;
+    margin: auto;
+    background: #34495E;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #F1C40F;
+}
+
+.inicioDoJogo {
+    margin-bottom: 20px;
+}
+
+label, input {
+    display: block;
+    margin: 10px auto;
+    font-size: 1em;
+}
+
+input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+button {
+    background: #3498DB;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #2980B9;
+}
+
+#palavra {
+    margin-top: 20px;
+    font-size: 2em;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+#erros {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+#alfabeto {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+button.letra {
+    background: #3498DB;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+button.letra:hover {
+    background: #2980B9;
+}
+
+button.letra:disabled {
+    cursor: not-allowed;
+}
+
+#forca {
+    margin: 20px auto;
+    width: 200px;
+    height: 200px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+#mensagem {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #F1C40F;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#mensagem.mostrar {
+    opacity: 1;
+}
+
+@keyframes tremer {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.letra.errada:disabled {
+    background: #E74C3C;
+    animation: tremer 0.3s;
+}
+
+.letra.certa:disabled {
+    background: #079902;
+    animation: tremer 0.3s;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #BDC3C7;
+}
+
+/* Media Queries para Responsividade */
+
+@media (max-width: 768px) {
+    main {
+        width: 90%;
+        padding: 15px;
+    }
+    
+    #palavra {
+        font-size: 1.5em;
+        letter-spacing: 3px;
+    }
+    
+    button.letra {
+        padding: 8px 12px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        width: 95%;
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    #palavra {
+        font-size: 1.2em;
+        letter-spacing: 2px;
+    }
+    
+    button.letra {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+}

@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da forca - Vanilla JavaScript</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Jogo da Forca</h1>
     </header>
     <main>
-        <div class="inicioDoJogo">
-            <label for="palavraInput">Insira uma palavra:</label>
-            <input type="text" id="palavraInput" placeholder="Ex: abacaxi" oninput="validarEntrada(this)" autocomplete="off">
+            <div class="inicioDoJogo">
+                    <label for="palavraInput">Insira uma palavra:</label>
+                    <input type="text" id="palavraInput" placeholder="Ex: abacaxi" oninput="validarEntrada(this)" autocomplete="off">
             <br>
-            <label for="dicaInput">Insira uma dica:</label>
-            <input type="text" id="dicaInput" placeholder="Ex: fruta" autocomplete="off">
+                    <label for="dicaInput">Insira uma dica:</label>
+                    <input type="text" id="dicaInput" placeholder="Ex: fruta" autocomplete="off">
             <br>
-            <button onclick="iniciarJogo()">Iniciar Jogo</button>
-        </div>
+                <button onclick="iniciarJogo()">Iniciar Jogo</button>
+            </div>
 
-        <p id="dica"></p>
-        <p id="palavra"></p>
-        <p id="erros"></p>
-        <div id="alfabeto"></div>
+            <p id="dica"></p>
+            <p id="palavra"></p>
+            <p id="erros"></p>
+            <div id="alfabeto"></div>
     </main>
     <footer>
         <p>Todos os direitos reservados a Jacildo Furtado.</p>

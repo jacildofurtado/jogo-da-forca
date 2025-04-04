@@ -18,8 +18,8 @@ function removerAcentos(str){
 
 function iniciarJogo(){
     //Pega a palavra e a dica inseridas pelo jogador e armazena em variáveis
-    palavraSecreta = removerAcentos(document.getElementById("palavraInput").value.toLowerCase());
-    dica = document.getElementById("dicaInput").value.toLowerCase();
+    palavraSecreta = removerAcentos(document.getElementById("palavraInput").value.toUpperCase());
+    dica = document.getElementById("dicaInput").value.toUpperCase();
 
     //Verifica se foi inserida uma palavra e uma dica
     if(!palavraSecreta || !dica){
@@ -48,7 +48,7 @@ function iniciarJogo(){
 
 function gerarTeclado(){
     //variável armazenando todas as letras do alfabeto e transformando em um array com o método .split().
-    let alfabeto = "abcdefghijklmnopqrstuvwxyz".split("");
+    let alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
     let painel = document.getElementById("alfabeto");
     painel.innerHTML = ""; //limpa antes de recriar
@@ -56,6 +56,7 @@ function gerarTeclado(){
     //cria dinamicamente os botões de cada letra
     alfabeto.forEach((letra) => {
         let botao = document.createElement("button");
+        botao.classList.add('letra');
         botao.textContent = letra;
         botao.onclick = () => verificarLetra(letra, botao);
         botao.style.margin = "5px";
@@ -73,9 +74,11 @@ function verificarLetra(letra, botao){
             if(char === letra){
                 //ao encontrar a letra na palavra secreta, adiciona a mesma na palavra exibida ao jogador
                 palavraExibida[index] = mapaAcentos.get(palavraSecreta)[index] || letra;
+                botao.classList.add('certa');
             }
         });
     } else {
+        botao.classList.add('errada');
         letrasErradas.push(letra);
         tentativas--;
     }
