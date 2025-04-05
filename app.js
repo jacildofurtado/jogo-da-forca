@@ -7,7 +7,7 @@ let mapaAcentos = new Map(); //Armazena a correspondência da palavraSecreta ant
 
 //valida a entrada impedindo a entrada de simbolos e números.
 function validarEntrada(input){
-    input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, '');
+    input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, '');
 }
 
 //função para remover acentos de palavras e mapeia a palavra com e sem acento
@@ -28,7 +28,7 @@ function iniciarJogo(){
     };
 
     //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em asteriscos para ser exibido ao usuário.
-    palavraExibida = Array(palavraSecreta.length).fill("*");
+    palavraExibida = Array(palavraSecreta.length).fill("_");
     tentativas = 6;
     letrasErradas = [];
 
@@ -87,7 +87,7 @@ function verificarLetra(letra, botao){
     document.getElementById("erros").textContent = `Erros: ${letrasErradas.join(", ")} (${tentativas} tentativas restantes)`;
 
     // verifica se ainda possue letra faltando ou se o número de tentativas chegou a zero.
-    if (!palavraExibida.includes("*")) {
+    if (!palavraExibida.includes("_")) {
         setTimeout(() => {
             alert("Parabéns, você venceu!");
             resetarJogo();
