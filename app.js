@@ -1,3 +1,4 @@
+//variáveis globais
 let palavraSecreta = ""; //Armazena a palavra secreta.
 let dica = ""; //Armazena a dica.
 let palavraExibida = []; //Armazena um Array com * com o comprimento da palavraSecreta.
@@ -27,15 +28,15 @@ function iniciarJogo(){
         return;
     };
 
-    //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em asteriscos para ser exibido ao usuário.
+    //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em espaços para ser exibido ao usuário.
     palavraExibida = Array(palavraSecreta.length).fill("_");
     tentativas = 6;
     letrasErradas = [];
 
-    //Acessa os elemetos html e exibe conteúdos neles dinamicamente.
+    //Acessa os elemetos html e exibe conteúdo neles dinâmicamente.
     document.getElementById("dica").textContent = `Dica: ${dica}`;
     document.getElementById("palavra").textContent = palavraExibida.join(" ");
-    document.getElementById("erros").textContent = "";
+    document.getElementById("erros").textContent = "Jogadas: restam " + tentativas + " tentativas";
 
     //Desabilita os inputs
     document.getElementById("palavraInput").style.display = "none";
@@ -84,18 +85,24 @@ function verificarLetra(letra, botao){
     }
 
     document.getElementById("palavra").textContent = palavraExibida.join(" ");
-    document.getElementById("erros").textContent = `Erros: ${letrasErradas.join(", ")} (${tentativas} tentativas restantes)`;
+    document.getElementById("erros").textContent = `Jogadas: restam ${tentativas} tentativas`;
+
+    //cria um elemento html de botão e adiciona o atributo "onclick" para chamar a função de reset do jogo
+    let fimDeJogo = document.getElementById("fimDeJogo");
+    let botaoResetar = document.createElement("button");
+    botaoResetar.textContent = "Novo Jogo";
+    botaoResetar.setAttribute("onclick", "resetarJogo()")
 
     // verifica se ainda possue letra faltando ou se o número de tentativas chegou a zero.
     if (!palavraExibida.includes("_")) {
         setTimeout(() => {
-            alert("Parabéns, você venceu!");
-            resetarJogo();
+            fimDeJogo.textContent = "Parabéns, você venceu!";
+            fimDeJogo.appendChild(botaoResetar);
         }, 100);
     } else if (tentativas === 0){
         setTimeout(() => {
-            alert(`Game Over! A palavra era "${mapaAcentos.get(palavraSecreta)}"`);
-            resetarJogo();
+            fimDeJogo.textContent = `Game Over! A palavra era "${mapaAcentos.get(palavraSecreta)}"`;
+            fimDeJogo.appendChild(botaoResetar);
         }, 100);
     }
 
@@ -112,4 +119,5 @@ function resetarJogo(){
     document.getElementById("palavra").innerHTML = "";
     document.getElementById("erros").innerHTML = "";
     document.getElementById("dica").innerHTML = "";
+    document.getElementById("fimDeJogo").innerHTML = "";
 }
