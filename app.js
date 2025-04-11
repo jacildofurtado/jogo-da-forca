@@ -6,12 +6,12 @@ let tentativas = 6; //Armazena a quantidade de tentativas.
 let letrasErradas = []; //Armazena as letras que forem clicadas e estiverem erradas.
 let mapaAcentos = new Map(); //Armazena a correspondência da palavraSecreta antes e depois de remover acentos.
 
-//valida a entrada impedindo a entrada de simbolos e números.
+//permite letras (com ou sem acento), hífen e espaço.
 function validarEntrada(input){
-    input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, '');
+    input.value = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\- ]/g, '');
 }
 
-//função para remover acentos de palavras e mapeia a palavra com e sem acento
+//função para remover acentos de palavras e mapeia a palavra com e sem acento.
 function removerAcentos(str){
     mapaAcentos.set(str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""), str);
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -28,8 +28,12 @@ function iniciarJogo(){
         return;
     };
 
-    //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em espaços para ser exibido ao usuário.
-    palavraExibida = Array(palavraSecreta.length).fill("_");
+    //Pega a palavra inserida, armazena em um Array e em seguida transforma seu comprimento em espaços para ser exibido ao usuário, se conter hífen então o hífen fica amostra e espaços também.
+    palavraExibida = palavraSecreta.split("").map(char => {
+        if(char === "-") return "-";
+        if(char === " ") return " ";
+        return "_";
+    });
     tentativas = 6;
     letrasErradas = [];
 
@@ -98,11 +102,13 @@ function verificarLetra(letra, botao){
         setTimeout(() => {
             fimDeJogo.textContent = "Parabéns, você venceu!";
             fimDeJogo.appendChild(botaoResetar);
+            fimDeJogo.classList.add("mostrar");
         }, 100);
     } else if (tentativas === 0){
         setTimeout(() => {
             fimDeJogo.textContent = `Game Over! A palavra era "${mapaAcentos.get(palavraSecreta)}"`;
             fimDeJogo.appendChild(botaoResetar);
+            fimDeJogo.classList.add("mostrar");
         }, 100);
     }
 

@@ -76,8 +76,28 @@ button:hover {
 }
 
 #erros {
-    font-size: 1.2em;
-    margin-top: 10px;
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#fimDeJogo {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #F1C40F;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#fimDeJogo.mostrar {
+    opacity: 1;
+}
+
+#fimDeJogo > button {
+    display: block;
+    margin: 20px auto 20px auto;
+    font-size: 1em;
 }
 
 #alfabeto {
@@ -105,19 +125,6 @@ button.letra:hover {
 
 button.letra:disabled {
     cursor: not-allowed;
-}
-
-#mensagem {
-    font-size: 1.5em;
-    margin-top: 20px;
-    color: #F1C40F;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-#mensagem.mostrar {
-    opacity: 1;
 }
 
 @keyframes tremer {
